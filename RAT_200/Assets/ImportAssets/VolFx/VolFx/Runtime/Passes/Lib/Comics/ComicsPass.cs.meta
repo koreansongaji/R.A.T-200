@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 96d4fad2d3344ba6804ecaba4fda3570
+timeCreated: 1696967500
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300643
+  packageName: VolFx - VFX Toolkit (Post Processing, Timeline Tracks, Shaders, Tools)
+  packageVersion: 2.9.1
+  assetPath: Assets/ImportAssets/VolFx/VolFx/Runtime/Passes/Lib/Comics/ComicsPass.cs
+  uploadId: 777194
