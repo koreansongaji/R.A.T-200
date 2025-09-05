@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 28
-  productGUID: 839367aa24089fa4987e86ae2be205bd
+  productGUID: a1aeb2424ce56b94180a7166d5635267
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: R.A.T#200
+  productName: RAT_200
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -838,14 +838,14 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: R.A.T#200
+  metroPackageName: RAT_200
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: R.A.T#200
+  metroApplicationDescription: RAT_200
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -916,10 +916,10 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 52b420d8-3293-4459-bff6-37f9032c6f42
+  cloudProjectId: 7716a7f9-5148-45c9-ad31-daf7793e658a
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: R.A.T#200
+  projectName: RAT_200
   organizationId: shw2912
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
