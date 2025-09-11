@@ -26,6 +26,7 @@ Shader "Hidden/Vol/Outline"
             sampler2D _MainTex;
             sampler2D _CameraDepthTexture;
             sampler2D _GradientTex;
+            sampler2D _CameraNormalsTexture;
 
             float4 _Data; // x - thickness, y - sensitive, z - depth space
             float4 _Fill;
@@ -70,12 +71,15 @@ Shader "Hidden/Vol/Outline"
             {
 #ifdef _LUMA
                 return luma(tex2D(_MainTex, uv).rgba);
+                //return luma(tex2D(_CameraNormalsTexture, uv).rgba);
 #endif
 #ifdef _ALPHA
                 return tex2D(_MainTex, uv).a;
 #endif
 #ifdef _CHROMA
-                return chroma(tex2D(_MainTex, uv).rgba);
+                //return chroma(tex2D(_MainTex, uv).rgba);
+                //CHROMA에 Normal Sampling 적용
+                return luma(tex2D(_CameraNormalsTexture, uv).rgba);
 #endif
 #ifdef _DEPTH
                 return tex2D(_CameraDepthTexture, uv).r;
@@ -144,6 +148,7 @@ Shader "Hidden/Vol/Outline"
 #ifdef _ADAPTIVE
     #ifdef _LUMA
                 s = pow(1 - saturate(sobel(input.uv, luma(col))), _Sensitive);
+                return half4(1,1,1,col.a);
     #elif  _ALPHA
                 s = pow(1 - saturate(sobel(input.uv, col.a)), _Sensitive);
     #elif  _CHROMA
@@ -153,6 +158,7 @@ Shader "Hidden/Vol/Outline"
     #endif
 #else
                 s = pow(1 - saturate(sobel(input.uv)), _Sensitive);
+                
 #endif
 
 #ifdef _SCREEN

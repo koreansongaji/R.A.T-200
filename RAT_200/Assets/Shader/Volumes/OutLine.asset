@@ -15,10 +15,10 @@ MonoBehaviour:
   active: 1
   m_Sensitive:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.19
   m_Thickness:
     m_OverrideState: 1
-    m_Value: 0.56
+    m_Value: 0.322
   m_Color:
     m_OverrideState: 1
     m_Value:
@@ -96,7 +96,7 @@ MonoBehaviour:
     m_Value: 1
   m_Adaptive:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   m_Remap:
     m_OverrideState: 1
     m_Value: 0
