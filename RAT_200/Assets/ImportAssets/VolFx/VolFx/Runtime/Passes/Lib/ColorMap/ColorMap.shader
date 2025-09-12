@@ -112,6 +112,7 @@ Shader "Hidden/Vol/ColorMap"
                 
                 half val   = luma(initial.rgb);
                 half4 grad = tex2D(_GradientTex, float2(val + _Mask.z, 0));
+                //return half4(val.xxx, initial.a);
 
                 //return  half4(lut_sample(initial.rgb, _lutTex), 1);
 #ifdef USE_PALETTE

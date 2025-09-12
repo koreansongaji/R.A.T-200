@@ -1233,6 +1233,8 @@ namespace VolFx
             if (_blit == null)
                 _blit = new Material(_blitShader);
 #endif
+            //노멀 강제 활성화
+            _execution.ConfigureInput(ScriptableRenderPassInput.Normal);
             
             renderer.EnqueuePass(_execution);
         }
