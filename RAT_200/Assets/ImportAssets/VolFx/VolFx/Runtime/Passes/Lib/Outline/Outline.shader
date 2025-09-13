@@ -26,14 +26,14 @@ Shader "Hidden/Vol/Outline"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
 
-            sampler2D _MainTex;
+            //sampler2D _MainTex;
             sampler2D _CameraDepthTexture;
             sampler2D _GradientTex;
 
             //sampler2D _CameraNormalsTexture;
             //sampler2D _UnityFBInput0;
 
-            // TEXTURE2D(_MainTex);
+            TEXTURE2D(_MainTex);
             // TEXTURE2D(_CameraDepthTexture);
             // TEXTURE2D(_GradientTex);
             
@@ -83,14 +83,14 @@ Shader "Hidden/Vol/Outline"
             {
                 //uv.y *= _ScreenParams.x / _ScreenParams.y;
 #ifdef _LUMA
-                return luma(tex2D(_MainTex, uv).rgba);
+                return luma(SAMPLE_TEXTURE2D(_MainTex, sampler_LinearClamp, uv).rgba);
                 //return luma(tex2D(_CameraNormalsTexture, uv).rgba);
 #endif
 #ifdef _ALPHA
-                return tex2D(_MainTex, uv).a;
+                return SAMPLE_TEXTURE2D(_MainTex, sampler_LinearClamp, uv).a;
 #endif
 #ifdef _CHROMA
-                return chroma(tex2D(_MainTex, uv).rgba);
+                return chroma(SAMPLE_TEXTURE2D(_MainTex, sampler_LinearClamp, uv).rgba);
 
                 //CHROMA에 Normal Sampling 적용
                 //return luma(tex2D(_CameraNormalsTexture, uv).rgba);
@@ -158,8 +158,8 @@ Shader "Hidden/Vol/Outline"
 
             float3 SampleColorCustom(float2 uv)
             {
-                return SAMPLE_TEXTURE2D(_UnityFBInput0, sampler_LinearClamp, uv).rgb;
-                //return luma(tex2D(_MainTex, uv).rgba).xxx;
+                //return SAMPLE_TEXTURE2D(_UnityFBInput0, sampler_LinearClamp, uv).rgb;
+                return luma(SAMPLE_TEXTURE2D(_MainTex, sampler_LinearClamp, uv).rgba).xxx;
             }
 
             float sobelCustom(float2 uv)
@@ -211,7 +211,7 @@ Shader "Hidden/Vol/Outline"
 
             half4 frag(frag_in input) : SV_Target
             {
-                half4 col = tex2D(_MainTex,input.uv);
+                half4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_LinearClamp, input.uv);
                 float s = 0;
 
 #ifdef _ADAPTIVE

@@ -715,12 +715,12 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 64
   _source:
-    _source: 1
+    _source: 0
     _globalTex: _inputTex
     _renderTex: {fileID: 0}
     _pool: {fileID: 0}
   _output:
-    _output: 0
+    _output: 1
     _renderTex: {fileID: 0}
     _outputTex: _VolFxTex
     _sortingOrder: 0

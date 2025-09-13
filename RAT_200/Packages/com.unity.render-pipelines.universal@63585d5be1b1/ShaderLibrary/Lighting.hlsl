@@ -45,6 +45,33 @@ half3 LightingSpecular(half3 lightColor, half3 lightDir, half3 normal, half3 vie
     return lightColor * specularReflection;
 }
 
+half3 LightingCellShading(SurfaceData surfaceData, Light light, half3 normalWS, half3 viewDir)
+{
+    half radiance = saturate(dot(normalWS, light.direction));
+    // radiance = smoothstep(0, 0 + 0.02, radiance);
+    if(radiance > 0.3) radiance = 1;
+    else if(radiance > 0.01) radiance = 0.5;
+    else radiance = 0.00;
+
+    radiance *= smoothstep(0.1, 0.1 + 0.02, light.shadowAttenuation);
+
+    radiance *= light.distanceAttenuation * light.color;
+
+    half smoothness = exp2(10 * surfaceData.smoothness + 1);
+    float3 halfVec = SafeNormalize(float3(light.direction) + float3(viewDir));
+    half NdotH = half(saturate(dot(normalWS, halfVec)));
+    half modifier = pow(float(NdotH), float(smoothness)); // Half produces banding, need full precision
+
+    modifier = smoothstep(0.8, 0.8 + 0.02, modifier);//step(0.8, modifier);
+    modifier *= radiance > 0.01 ? 1 : 0;
+
+    // NOTE: In order to fix internal compiler error on mobile platforms, this needs to be float3
+    float3 specularReflection = surfaceData.specular.rgb * modifier;
+    half spec = light.color * specularReflection;
+
+    return  radiance * surfaceData.albedo + spec;
+}
+
 half3 LightingPhysicallyBased(BRDFData brdfData, BRDFData brdfDataClearCoat,
     half3 lightColor, half3 lightDirectionWS, float lightAttenuation,
     half3 normalWS, half3 viewDirectionWS,

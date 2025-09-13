@@ -19,6 +19,8 @@ Shader "Hidden/Vol/ColorMap"
             
             #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
             #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
 
             #pragma vertex vert
             #pragma fragment frag
@@ -29,7 +31,8 @@ Shader "Hidden/Vol/ColorMap"
             float4 _Mask;
 
             sampler2D    _MainTex;
-            sampler2D    _GradientTex;
+            //sampler2D    _GradientTex;
+            TEXTURE2D(_GradientTex);
             
             sampler2D    _hueTex;
             sampler2D    _satTex;
@@ -109,10 +112,11 @@ Shader "Hidden/Vol/ColorMap"
             half4 frag (frag_in i) : SV_Target
             {
                 half4 initial  = tex2D(_MainTex, i.uv);
+                initial = saturate(initial);
                 
                 half val   = luma(initial.rgb);
-                half4 grad = tex2D(_GradientTex, float2(val + _Mask.z, 0));
-                //return half4(val.xxx, initial.a);
+                half4 grad = SAMPLE_TEXTURE2D(_GradientTex, sampler_LinearClamp, float2(val + _Mask.z, 0));
+                //return half4(grad.rgb, initial.a);
 
                 //return  half4(lut_sample(initial.rgb, _lutTex), 1);
 #ifdef USE_PALETTE
