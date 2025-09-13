@@ -57,12 +57,14 @@ half3 LightingCellShading(SurfaceData surfaceData, Light light, half3 normalWS, 
 
     radiance *= light.distanceAttenuation * light.color;
 
-    half smoothness = exp2(10 * surfaceData.smoothness + 1);
+    //half smoothness = exp2(10 * surfaceData.smoothness + 1);
     float3 halfVec = SafeNormalize(float3(light.direction) + float3(viewDir));
     half NdotH = half(saturate(dot(normalWS, halfVec)));
-    half modifier = pow(float(NdotH), float(smoothness)); // Half produces banding, need full precision
+    //half modifier = pow(float(NdotH), float(smoothness)); // Half produces banding, need full precision
+    half modifier = pow(float(NdotH), 10); // Half produces banding, need full precision
 
-    modifier = smoothstep(0.8, 0.8 + 0.02, modifier);//step(0.8, modifier);
+    half stepAmount = saturate(1.3 - surfaceData.smoothness);
+    modifier = smoothstep(stepAmount, stepAmount + 0.02, modifier);//step(0.8, modifier);
     modifier *= radiance > 0.01 ? 1 : 0;
 
     // NOTE: In order to fix internal compiler error on mobile platforms, this needs to be float3
